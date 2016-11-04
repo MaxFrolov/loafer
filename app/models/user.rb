@@ -34,12 +34,23 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :campaigns, inverse_of: :user, dependent: :destroy
+  has_many :friendships
+  has_many :friends, through: :friendships
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :inverse_friends, through: :inverse_friendships, source: :user
 
   after_create :send_welcome_email
 
   def full_name
     [self.first_name, self.last_name].compact.join(' ').presence || self.email
+  end
+
+  def all_friends
+    friendships = Friendship.where(status: :accepted).where('user_id=? OR friend_id=?', id, id)
+    user_ids = friendships.map(&:user_id)
+    friend_ids = friendships.map(&:friend_id)
+    ids = (user_ids + friend_ids).uniq - [id]
+    User.where(id: ids)
   end
 
   private
