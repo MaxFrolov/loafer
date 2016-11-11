@@ -2,12 +2,12 @@ class EventsController < ApiController
   expose :event
 
   def index
-    events = policy_scope(Event)
-    render_resources events
+    @events = policy_scope(Event)
+    render_resources @events
   end
 
   def create
-    event.assign_attributes(Event)
+    event.assign_attributes permitted_attributes(Event)
     event.save
     render_resource_or_errors event
   end

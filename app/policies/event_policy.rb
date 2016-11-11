@@ -1,11 +1,15 @@
 class EventPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope
+      scope.all
     end
   end
 
   def index?
+    true
+  end
+
+  def create?
     true
   end
 
@@ -22,6 +26,6 @@ class EventPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:title, :subtitle, :lng, :lat, :members_count, :status, :start_date, :approximate_time]
+    [:title, :subtitle, :lng, :lat, :members_count, :status, :start_date, :approximate_time, :address, :private]
   end
 end
