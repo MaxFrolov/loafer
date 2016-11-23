@@ -36,6 +36,8 @@ class User < ApplicationRecord
 
   has_many :campaigns, inverse_of: :user, dependent: :destroy
 
+  mount_uploader :avatar, AvatarUploader
+
   after_create :send_welcome_email
 
   def full_name

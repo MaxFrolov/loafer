@@ -42,3 +42,6 @@ gem 'dotenv-rails'
 
 gem 'mandrill_mailer'
 gem 'launchy'
+gem 'carrierwave'
+gem 'carrierwave-data-uri'
+gem 'mini_magick'
