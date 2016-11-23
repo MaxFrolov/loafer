@@ -8,6 +8,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    %i(email first_name last_name phone)
+    %i(email first_name last_name phone avatar_data_uri)
   end
 end
