@@ -3,7 +3,7 @@ class EventsController < ApiController
 
   def index
     @events = policy_scope(Event)
-    render_resources @events
+    render_resources @events.includes(:user)
   end
 
   def create
