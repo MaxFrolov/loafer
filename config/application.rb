@@ -29,5 +29,7 @@ module SModel
     config.api_only = false
 
     config.eager_load_paths << Rails.root.join('lib', 'autoload')
+    config.time_zone = 'Kyiv'
+    config.active_record.default_timezone = :utc
   end
 end

@@ -26,6 +26,6 @@ class EventPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:title, :subtitle, :lng, :lat, :members_count, :status, :start_date, :approximate_time, :address, :private]
+    %i(title subtitle lng lat members_count status start_date approximate_time address private)
   end
 end
