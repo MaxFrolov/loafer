@@ -7,7 +7,10 @@ Rails.application.routes.draw do
         token_validations: 'custom/token_validations',
         omniauth_callbacks: 'custom/omniauth_callbacks'
     }
-    resources :users, only: [:show, :update]
-    resources :events, only: [:index, :create, :update, :destroy]
+
+    resources :events, only: :index
+    resources :users, only: [:show, :update] do
+      resource :events, only: [:create, :update, :destroy]
+    end
   end
 end

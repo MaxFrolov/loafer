@@ -7,7 +7,8 @@ class EventsController < ApiController
   end
 
   def create
-    event.assign_attributes permitted_attributes(Event)
+    event = current_user.events.build permitted_attributes(Event)
+    authorize event
     event.save
     render_resource_or_errors event
   end

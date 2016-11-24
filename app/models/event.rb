@@ -24,4 +24,6 @@
 
 class Event < ApplicationRecord
   belongs_to :user
+
+  validates :title, :address, :members_count, :start_date, :approximate_time, presence: true
 end
