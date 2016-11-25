@@ -34,6 +34,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :events_participants
+  has_many :participant_events, through: :events_participants, dependent: :destroy, source: :event
+
   has_many :events, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader

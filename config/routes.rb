@@ -8,9 +8,9 @@ Rails.application.routes.draw do
         omniauth_callbacks: 'custom/omniauth_callbacks'
     }
 
-    resources :events, only: :index
+    resources :events, only: [:index, :show]
     resources :users, only: [:show, :update] do
-      resource :events, only: [:create, :update, :destroy]
+      resource :events, only: [:create, :destroy]
     end
   end
 end

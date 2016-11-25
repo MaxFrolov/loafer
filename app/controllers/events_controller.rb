@@ -1,9 +1,10 @@
 class EventsController < ApiController
+  serialization_scope :current_user
   expose :event
 
   def index
     @events = policy_scope(Event)
-    render_resources @events.includes(:user)
+    render_resources @events
   end
 
   def create
@@ -11,6 +12,10 @@ class EventsController < ApiController
     authorize event
     event.save
     render_resource_or_errors event
+  end
+
+  def show
+    render_resource_data event
   end
 
   def update

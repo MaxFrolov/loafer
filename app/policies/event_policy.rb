@@ -14,7 +14,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user == user
+    record.owner == user
   end
 
   def update?
