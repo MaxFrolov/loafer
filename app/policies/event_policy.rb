@@ -14,18 +14,22 @@ class EventPolicy < ApplicationPolicy
   end
 
   def show?
-    record.owner == user
+    create?
   end
 
   def update?
-    show?
+    create?
   end
 
   def destroy?
-    show?
+    record.owner == user
+  end
+
+  def accept_event?
+    record.owner != user
   end
 
   def permitted_attributes
-    %i(title subtitle lng lat members_count status start_date approximate_time address private)
+    %i(title subtitle lng lat members_count status start_date approximate_time address private user_id)
   end
 end

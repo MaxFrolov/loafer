@@ -21,10 +21,6 @@
 #
 #  index_events_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_0cb5590091  (user_id => users.id)
-#
 
 class Event < ApplicationRecord
   has_many :events_participants
@@ -35,6 +31,7 @@ class Event < ApplicationRecord
   before_create :set_status_active
 
   validates :title, :address, :members_count, :start_date, :approximate_time, presence: true
+  validates :participants, uniqueness: true
 
   enum status: %i(active expired completed full)
 
