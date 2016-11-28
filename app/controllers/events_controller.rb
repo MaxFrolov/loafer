@@ -23,6 +23,13 @@ class EventsController < ApiController
     render_resource_or_errors event
   end
 
+  def accept_event
+    event.participants << current_user
+    event.check_is_full
+    event.save
+    render_resource_or_errors event
+  end
+
   def destroy
     event.destroy
     render nothing: true
