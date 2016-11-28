@@ -24,7 +24,9 @@ class EventsController < ApiController
   end
 
   def accept_event
-    event.update(participants: [current_user])
+    event.participants << current_user
+    event.check_is_full
+    event.save
     render_resource_or_errors event
   end
 

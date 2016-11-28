@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       put '/accept_event/:id', to: 'events#accept_event', on: :member
     end
     resources :users, only: [:show, :update] do
-      resource :events, only: [:create, :destroy]
+      resources :events, only: [:create, :destroy, :update]
     end
   end
 end
