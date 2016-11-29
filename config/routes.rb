@@ -8,7 +8,9 @@ Rails.application.routes.draw do
         omniauth_callbacks: 'custom/omniauth_callbacks'
     }
 
-    resources :events, only: [:index, :show]
+    resources :events, only: [:index, :show] do
+      get '/participant_events', to: 'events#participant_events', on: :collection
+    end
     resource :events, only: [] do
       put '/accept_event/:id', to: 'events#accept_event', on: :member
     end

@@ -29,6 +29,10 @@ class EventPolicy < ApplicationPolicy
     record.owner != user
   end
 
+  def participant_events?
+    create?
+  end
+
   def permitted_attributes
     %i(title subtitle lng lat members_count status start_date approximate_time address private user_id)
   end

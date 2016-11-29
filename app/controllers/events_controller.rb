@@ -4,11 +4,12 @@ class EventsController < ApiController
 
   def index
     @events = policy_scope(Event)
-    render_resources @events
+    render_resources @events.events_active
   end
 
   def create
     event = current_user.events.build permitted_attributes(Event)
+    event.participants << current_user
     authorize event
     event.save
     render_resource_or_errors event
@@ -28,6 +29,12 @@ class EventsController < ApiController
     event.check_is_full
     event.save
     render_resource_or_errors event
+  end
+
+  def participant_events
+    events = current_user.participant_events
+    authorize event
+    render_resources events
   end
 
   def destroy

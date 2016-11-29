@@ -33,7 +33,7 @@ class Event < ApplicationRecord
 
   validates :title, :address, :members_count, :start_date, :approximate_time, presence: true
 
-  default_scope { where.not(status: :full) }
+  scope :events_active, -> { where.not(status: :full) }
 
   enum status: %i(active expired completed full)
 
