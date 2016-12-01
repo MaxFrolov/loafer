@@ -10,12 +10,14 @@ Rails.application.routes.draw do
 
     resources :events, only: [:index, :show] do
       get '/participant_events', to: 'events#participant_events', on: :collection
-    end
-    resource :events, only: [] do
       put '/accept_event/:id', to: 'events#accept_event', on: :member
+    end
+    resources :groups, only: [:index, :show] do
+      get '/user_groups', to: 'groups#user_groups', on: :collection
     end
     resources :users, only: [:show, :update] do
       resources :events, only: [:create, :destroy, :update]
+      resources :groups, only: [:create, :destroy, :update]
     end
   end
 end

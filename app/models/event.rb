@@ -21,6 +21,10 @@
 #
 #  index_events_on_user_id  (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_0cb5590091  (user_id => users.id)
+#
 
 class Event < ApplicationRecord
   has_many :events_participants, inverse_of: :event

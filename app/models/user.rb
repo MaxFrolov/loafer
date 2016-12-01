@@ -21,6 +21,7 @@
 #  tokens                 :json
 #  created_at             :datetime
 #  updated_at             :datetime
+#  avatar                 :string
 #
 # Indexes
 #
@@ -36,12 +37,15 @@ class User < ApplicationRecord
 
   has_many :events_participants
   has_many :participant_events, through: :events_participants, dependent: :destroy, source: :event
-
+  has_many :users_groups
+  has_many :groups, through: :users_groups
+  has_many :groups
   has_many :events, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
 
   after_create :send_welcome_email
+  before_create :set_default_groups
 
   def full_name
     [self.first_name, self.last_name].compact.join(' ').presence || self.email
@@ -51,5 +55,10 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome(self).deliver
+  end
+
+  def set_default_groups
+    default_groups = Group.where(default: true)
+    self.groups << default_groups
   end
 end
